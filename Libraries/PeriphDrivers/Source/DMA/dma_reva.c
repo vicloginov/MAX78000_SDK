@@ -119,11 +119,12 @@ int MXC_DMA_RevA_AcquireChannel(void)
         return E_BAD_STATE;
     }
     
+    #ifndef __riscv 
     /* If DMA is locked return busy */
     if(MXC_GetLock(&dma_lock, 1) != E_NO_ERROR) {
         return E_BUSY;
     }
-    
+    #endif
     /* Default is no channel available */
     channel = E_NONE_AVAIL;
     
@@ -139,8 +140,9 @@ int MXC_DMA_RevA_AcquireChannel(void)
             }
         }
     }
-    
+    #ifndef __riscv    
     MXC_FreeLock(&dma_lock);
+    #endif
     
     return channel;
 }

@@ -51,7 +51,7 @@ SECTIONS {
         KEEP(*(.eh_frame*))
         _etext = .;
     } > FLASH
-	
+
     /* Binary import!!! */
     .bin_storage :
     {
@@ -61,6 +61,7 @@ SECTIONS {
       _bin_end_ = .;
       . = ALIGN(4);
     } > FLASH
+
     /* it's used for C++ exception handling      */
     /* we need to keep this to avoid overlapping */
     .ARM.exidx :

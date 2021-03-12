@@ -102,6 +102,7 @@ typedef struct _camera {
     int (*set_hmirror)(int enable);
     int (*set_vflip)(int enable);
     int (*set_negateimage)(int enable);
+    int (*get_luminance)(int* lum);
 } camera_t;
 
 /******************************** Public Functions ***************************/
@@ -174,5 +175,8 @@ uint8_t* camera_get_pixel_format(void);
 
 // Get a pointer to the camera frame buffer, also get the image length and resolution.
 void camera_get_image(uint8_t** img, uint32_t* imgLen, uint32_t* w, uint32_t* h);
+
+// Get luminance level from camera.
+int camera_get_luminance_level(int* lum);
 
 #endif // __CAMERA_H__
