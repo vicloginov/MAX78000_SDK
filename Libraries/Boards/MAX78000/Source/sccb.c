@@ -66,6 +66,7 @@
 #define SDA_GET()       GPIO_GET(SDA_PORT, SDA_PIN)
 
 #define WAIT_US         1
+//#define WAIT_US         20
 #define DELAY_US(us)    MXC_Delay(us)
 
 static const mxc_gpio_cfg_t gpio_cfg_scl =   { SCL_PORT, SCL_PIN, MXC_GPIO_FUNC_OUT, MXC_GPIO_PAD_NONE, MXC_GPIO_VSSEL_VDDIO};
@@ -269,3 +270,80 @@ int sccb_write_byt(uint8_t slv_addr, uint8_t reg, uint8_t val)
     
     return ret;
 }
+
+int sccb_read_reg16(uint8_t slv_addr, uint16_t reg, uint8_t* byte)
+{
+    int ret = 0;
+    
+    start();
+    
+    if (ret == 0) {
+        ret = send_byte(slv_addr << 1);    // address
+    }
+    DELAY_US(20);
+  
+    if (ret == 0) {
+        ret = send_byte(reg >> 8);
+    }
+    
+    DELAY_US(20);
+    
+    if (ret == 0) {
+        ret = send_byte(reg);
+    }
+    
+    DELAY_US(20);
+    
+    stop();
+    
+    DELAY_US(20);
+    
+    if (ret == 0) {
+        DELAY_US(WAIT_US);
+        
+        start();
+        ret = send_byte((slv_addr << 1) + 1); // +1 means read
+        
+        if (ret == 0)   {
+            *byte = get_byte(); //
+            send_NACK();
+        }
+        
+        stop();
+    }
+    
+    return ret;
+}
+
+int sccb_write_reg16(uint8_t slv_addr, uint16_t reg, uint8_t val)
+{
+    int ret = 0;
+    
+    start();
+    
+    if (ret == 0) {
+        ret = send_byte(slv_addr << 1);    // address
+    }
+    
+    DELAY_US(10);
+    
+    if (ret == 0) {
+        ret = send_byte(reg >> 8);
+    }
+    
+    if (ret == 0) {
+        ret = send_byte(reg);
+    }
+    
+    DELAY_US(10);
+    
+    if (ret == 0) {
+        ret = send_byte(val);    //
+    }
+    
+    DELAY_US(10);
+    stop();
+    
+    return ret;
+}
+

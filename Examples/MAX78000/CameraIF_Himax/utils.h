@@ -30,16 +30,20 @@
 * ownership rights.
 *
 ******************************************************************************/
-#ifndef __SSCB_H__
-#define __SSCB_H__
+#ifndef _UTILS_H_
+#define _UTILS_H_
 
+/*****************************     INCLUDES  *********************************/
 #include <stdint.h>
 
-int sccb_init(void);
-int sccb_scan(void);
-int sccb_read_byt(uint8_t slv_addr, uint8_t reg,  uint8_t* byt);
-int sccb_write_byt(uint8_t slv_addr, uint8_t reg, uint8_t byt);
-int sccb_read_reg16(uint8_t slv_addr, uint16_t reg, uint8_t* byte);
-int sccb_write_reg16(uint8_t slv_addr, uint16_t reg, uint8_t val);
+/*****************************     MACROS    *********************************/
 
-#endif // __SSCB_H__
+/*****************************     VARIABLES *********************************/
+
+/*****************************     FUNCTIONS *********************************/
+void utils_delay_ms(uint32_t ms);
+uint32_t utils_get_time_ms(void);
+void utils_hexDump(const char* title, uint8_t* buf, uint32_t len);
+int  utils_send_img_to_pc(uint8_t* img, uint32_t imgLen, int w, int h, uint8_t* pixelformat);
+
+#endif // _UTILS_H_

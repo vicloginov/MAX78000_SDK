@@ -345,6 +345,17 @@ int camera_setup(int xres, int yres, pixformat_t pixformat, fifomode_t fifo_mode
     return ret;
 }
 
+#if (CAMERA == HM01B0)
+int camera_read_reg(uint16_t reg_addr, uint8_t* reg_data)
+{
+    return camera.read_reg(reg_addr, reg_data);
+}
+
+int camera_write_reg(uint16_t reg_addr, uint8_t reg_data)
+{
+    return camera.write_reg(reg_addr, reg_data);
+}    
+#else
 int camera_read_reg(uint8_t reg_addr, uint8_t* reg_data)
 {
     return camera.read_reg(reg_addr, reg_data);
@@ -354,6 +365,7 @@ int camera_write_reg(uint8_t reg_addr, uint8_t reg_data)
 {
     return camera.write_reg(reg_addr, reg_data);
 }
+#endif
 
 int camera_get_slave_address(void)
 {

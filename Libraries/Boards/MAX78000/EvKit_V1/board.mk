@@ -43,7 +43,11 @@ SRCS += pb.c
 SRCS += tft.c
 SRCS += touchscreen.c
 SRCS += camera.c
+ifeq "$(CAMERA)" "HM01B0"
+SRCS += hm01b0.c
+else
 SRCS += ov7692.c
+endif
 SRCS += sccb.c
 
 # Where to find BSP source files

@@ -30,16 +30,15 @@
 * ownership rights.
 *
 ******************************************************************************/
-#ifndef __SSCB_H__
-#define __SSCB_H__
+#ifndef __HM01B0_REGS_H__
+#define __HM01B0_REGS_H__
 
-#include <stdint.h>
+#define HM01B0_I2C_SLAVE_ADDR   0x24
 
-int sccb_init(void);
-int sccb_scan(void);
-int sccb_read_byt(uint8_t slv_addr, uint8_t reg,  uint8_t* byt);
-int sccb_write_byt(uint8_t slv_addr, uint8_t reg, uint8_t byt);
-int sccb_read_reg16(uint8_t slv_addr, uint16_t reg, uint8_t* byte);
-int sccb_write_reg16(uint8_t slv_addr, uint16_t reg, uint8_t val);
+#define MODEL_H        (0x0000)
+#define MODEL_L        (0x0001)
+#define REVISION       (0x0002)
+#define SW_RESET       (0x0103)
 
-#endif // __SSCB_H__
+
+#endif //__HM01B0_H__
