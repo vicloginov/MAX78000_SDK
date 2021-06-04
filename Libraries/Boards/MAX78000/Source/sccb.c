@@ -66,7 +66,6 @@
 #define SDA_GET()       GPIO_GET(SDA_PORT, SDA_PIN)
 
 #define WAIT_US         1
-//#define WAIT_US         20
 #define DELAY_US(us)    MXC_Delay(us)
 
 #if (CAMERA == HM01B0)
@@ -76,6 +75,22 @@ static const mxc_gpio_cfg_t gpio_cfg_sda =   { SDA_PORT, SDA_PIN, MXC_GPIO_FUNC_
 static const mxc_gpio_cfg_t gpio_cfg_scl =   { SCL_PORT, SCL_PIN, MXC_GPIO_FUNC_OUT, MXC_GPIO_PAD_NONE, MXC_GPIO_VSSEL_VDDIO};
 static const mxc_gpio_cfg_t gpio_cfg_sda =   { SDA_PORT, SDA_PIN, MXC_GPIO_FUNC_OUT, MXC_GPIO_PAD_NONE, MXC_GPIO_VSSEL_VDDIO};
 #endif
+
+/*
+#define TIME_SCALE  4
+int DELAY_US(int us)
+{
+int i, count;
+    
+    count = us * TIME_SCALE;
+    
+    while(count--) {
+        i++;
+    }
+ 
+    return i;
+}
+*/
 
 /******************************** Static Functions ***************************/
 static void start(void)
@@ -190,7 +205,16 @@ int sccb_init(void)
     
     SDA_HIGH();
     SCL_HIGH();
-    
+
+/*    
+    while(1)
+    {
+        SCL_HIGH();
+        DELAY_US(WAIT_US);
+        SCL_LOW();
+        DELAY_US(WAIT_US);
+    }
+*/   
     return ret;
 }
 
@@ -285,23 +309,23 @@ int sccb_read_reg16(uint8_t slv_addr, uint16_t reg, uint8_t* byte)
     if (ret == 0) {
         ret = send_byte(slv_addr << 1);    // address
     }
-    DELAY_US(20);
+    //DELAY_US(10);
   
     if (ret == 0) {
         ret = send_byte(reg >> 8);
     }
     
-    DELAY_US(20);
+    //DELAY_US(10);
     
     if (ret == 0) {
         ret = send_byte(reg);
     }
     
-    DELAY_US(20);
+    //DELAY_US(10);
     
     stop();
     
-    DELAY_US(20);
+    //DELAY_US(10);
     
     if (ret == 0) {
         DELAY_US(WAIT_US);
@@ -330,7 +354,7 @@ int sccb_write_reg16(uint8_t slv_addr, uint16_t reg, uint8_t val)
         ret = send_byte(slv_addr << 1);    // address
     }
     
-    DELAY_US(10);
+    //DELAY_US(10);
     
     if (ret == 0) {
         ret = send_byte(reg >> 8);
@@ -340,13 +364,13 @@ int sccb_write_reg16(uint8_t slv_addr, uint16_t reg, uint8_t val)
         ret = send_byte(reg);
     }
     
-    DELAY_US(10);
+    //DELAY_US(10);
     
     if (ret == 0) {
         ret = send_byte(val);    //
     }
     
-    DELAY_US(10);
+    //DELAY_US(10);
     stop();
     
     return ret;

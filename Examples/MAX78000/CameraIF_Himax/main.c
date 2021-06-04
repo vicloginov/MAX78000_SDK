@@ -49,11 +49,13 @@
 /***** Includes *****/
 #include <stdio.h>
 #include <stdint.h>
+#include "mxc.h"
 #include "mxc_device.h"
+#include "mxc_delay.h"
 #include "uart.h"
 #include "led.h"
 #include "board.h"
-#include "mxc_delay.h"
+#include "icc.h"
 #include "camera.h"
 #include "utils.h"
 #include "dma.h"
@@ -84,6 +86,13 @@ int main(void)
     int id;
     int dma_channel;
 
+	/* Enable cache */
+	MXC_ICC_Enable(MXC_ICC0);
+
+	/* Set system clock to 100 MHz */
+	MXC_SYS_Clock_Select(MXC_SYS_CLOCK_IPO);
+	SystemCoreClockUpdate();
+
     // Initialize DMA for camera interface
     MXC_DMA_Init();
     dma_channel = MXC_DMA_AcquireChannel();
@@ -95,20 +104,20 @@ int main(void)
     // Obtain the I2C slave address of the camera.
     slaveAddress = camera_get_slave_address();
     printf("Camera I2C slave address is %02x\n", slaveAddress);
-    
+
     while(1)
     {
         uint8_t value;
         camera_read_reg(0x0000, &value);
-        printf("Value 0 =%04x\n", value);
+        printf("REG 0: %04x\n", value);
         camera_read_reg(0x0001, &value);
-        printf("Value 1 =%04x\n", value);
+        printf("REG 1: %04x\n", value);
         camera_read_reg(0x0002, &value);
-        printf("Value 2 =%04x\n", value);
+        printf("REG 2: %04x\n", value);
         camera_read_reg(0x0005, &value);
-        printf("Value 5=%04x\n", value);
+        printf("REG 5: %04x\n", value);
         camera_read_reg(0x0006, &value);
-        printf("Value 6=%04x\n", value);
+        printf("REG 6: %04x\n", value);
         MXC_Delay(500000);
     }
     
