@@ -69,8 +69,13 @@
 //#define WAIT_US         20
 #define DELAY_US(us)    MXC_Delay(us)
 
+#if (CAMERA == HM01B0)
+static const mxc_gpio_cfg_t gpio_cfg_scl =   { SCL_PORT, SCL_PIN, MXC_GPIO_FUNC_OUT, MXC_GPIO_PAD_NONE, MXC_GPIO_VSSEL_VDDIOH};
+static const mxc_gpio_cfg_t gpio_cfg_sda =   { SDA_PORT, SDA_PIN, MXC_GPIO_FUNC_OUT, MXC_GPIO_PAD_NONE, MXC_GPIO_VSSEL_VDDIOH};    
+#else
 static const mxc_gpio_cfg_t gpio_cfg_scl =   { SCL_PORT, SCL_PIN, MXC_GPIO_FUNC_OUT, MXC_GPIO_PAD_NONE, MXC_GPIO_VSSEL_VDDIO};
 static const mxc_gpio_cfg_t gpio_cfg_sda =   { SDA_PORT, SDA_PIN, MXC_GPIO_FUNC_OUT, MXC_GPIO_PAD_NONE, MXC_GPIO_VSSEL_VDDIO};
+#endif
 
 /******************************** Static Functions ***************************/
 static void start(void)
