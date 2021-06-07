@@ -20,7 +20,7 @@
 							<option id="cdt.managedbuild.option.gnu.cross.prefix.335194058" name="Prefix" superClass="cdt.managedbuild.option.gnu.cross.prefix"/>
 							<option id="cdt.managedbuild.option.gnu.cross.path.442482612" name="Path" superClass="cdt.managedbuild.option.gnu.cross.path"/>
 							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.ELF" id="cdt.managedbuild.targetPlatform.gnu.cross.1749116374" isAbstract="false" osList="all" superClass="cdt.managedbuild.targetPlatform.gnu.cross"/>
-							<builder arguments="ECLIPSE=1 -j 8" buildPath="${workspace_loc:/CameraIF}" command="make" id="cdt.managedbuild.builder.gnu.cross.822648135" keepEnvironmentInBuildfile="false" managedBuildOn="false" name="Gnu Make Builder" superClass="cdt.managedbuild.builder.gnu.cross"/>
+							<builder arguments="ECLIPSE=1 -j 8 MAXIM_PATH=&quot;&quot;" buildPath="${workspace_loc:/CameraIF_Himax}" command="make" id="cdt.managedbuild.builder.gnu.cross.822648135" keepEnvironmentInBuildfile="false" managedBuildOn="false" name="Gnu Make Builder" superClass="cdt.managedbuild.builder.gnu.cross"/>
 							<tool id="cdt.managedbuild.tool.gnu.cross.c.compiler.244992773" name="Cross GCC Compiler" superClass="cdt.managedbuild.tool.gnu.cross.c.compiler">
 								<option defaultValue="gnu.c.optimization.level.none" id="gnu.c.compiler.option.optimization.level.1326406900" name="Optimization Level" superClass="gnu.c.compiler.option.optimization.level" valueType="enumerated"/>
 								<option defaultValue="gnu.c.debugging.level.max" id="gnu.c.compiler.option.debugging.level.1790273363" name="Debug Level" superClass="gnu.c.compiler.option.debugging.level" valueType="enumerated"/>
@@ -65,12 +65,13 @@
 		</cconfiguration>
 	</storageModule>
 	<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-		<project id="CameraIF.ilg.gnuarmeclipse.managedbuild.cross.target.elf.737306620" name="Executable"/>
+		<project id="CameraIF_Himax.ilg.gnuarmeclipse.managedbuild.cross.target.elf.737306620" name="Executable"/>
 	</storageModule>
 	<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
 	<storageModule moduleId="refreshScope" versionNumber="2">
+		<configuration configurationName="MAXIM"/>
 		<configuration configurationName="Debug">
-			<resource resourceType="PROJECT" workspacePath="/CameraIF"/>
+			<resource resourceType="PROJECT" workspacePath="/CameraIF_Himax"/>
 		</configuration>
 	</storageModule>
 	<storageModule moduleId="org.eclipse.cdt.internal.ui.text.commentOwnerProjectMappings"/>

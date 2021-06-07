@@ -64,6 +64,10 @@
 #define IMAGE_YRES  64
 #define CAMERA_FREQ (10 * 1000 * 1000)
 
+
+///!!!!
+#include "sccb.h"
+
 void process_img(void)
 {
     uint8_t*   raw;
@@ -85,6 +89,8 @@ int main(void)
     int slaveAddress;
     int id;
     int dma_channel;
+	
+	uint8_t value;
 
 	/* Enable cache */
 	MXC_ICC_Enable(MXC_ICC0);
@@ -97,17 +103,19 @@ int main(void)
     MXC_DMA_Init();
     dma_channel = MXC_DMA_AcquireChannel();
 
+	//MXC_Delay(100);
+	
     // Initialize the camera driver.
     camera_init(CAMERA_FREQ);
     printf("\n\nCameraIF Example\n");
     
-    // Obtain the I2C slave address of the camera.
     slaveAddress = camera_get_slave_address();
+
     printf("Camera I2C slave address is %02x\n", slaveAddress);
 
     while(1)
     {
-        uint8_t value;
+
         camera_read_reg(0x0000, &value);
         printf("REG 0: %04x\n", value);
         camera_read_reg(0x0001, &value);
