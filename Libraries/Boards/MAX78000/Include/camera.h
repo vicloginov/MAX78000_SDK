@@ -39,6 +39,8 @@
 
 #if (CAMERA == HM01B0)
 #include "hm01b0_regs.h"
+#elif (CAMERA == OV5642)
+#include "ov5642_regs.h"
 #else
 #include "ov7692_regs.h"
 #endif
@@ -93,7 +95,7 @@ typedef struct _camera {
     int (*dump_registers)(void);
     int (*reset)(void);
     int (*sleep)(int enable);
-#if (CAMERA == HM01B0)
+#if (CAMERA == HM01B0 || CAMERA == OV5642)
     int (*read_reg)(uint16_t reg_addr, uint8_t* reg_data);
     int (*write_reg)(uint16_t reg_addr, uint8_t reg_data);
 #else    
@@ -140,7 +142,7 @@ int camera_sleep(int enable);
 // Shutdown mode.
 int camera_shutdown(int enable);
 
-#if (CAMERA == HM01B0)
+#if (CAMERA == HM01B0 || CAMERA == OV5642)
 // Write a sensor register.
 int camera_write_reg(uint16_t reg_addr, uint8_t reg_data);
 int camera_read_reg(uint16_t reg_addr, uint8_t* reg_data);     

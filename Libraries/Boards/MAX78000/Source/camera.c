@@ -334,7 +334,9 @@ int camera_setup(int xres, int yres, pixformat_t pixformat, fifomode_t fifo_mode
     }
     else {
         // Slow down clock if not using dma
+        #if (CAMERA == OV7692)
         ret |= camera.write_reg(0x11, 0xf); // clock prescaler
+        #endif
         MXC_SETFIELD(MXC_PCIF->ctrl, MXC_F_CAMERAIF_CTRL_RX_DMA, 0x0);
         MXC_PCIF_EnableInt(MXC_F_CAMERAIF_INT_EN_FIFO_THRESH);
     }
@@ -345,7 +347,7 @@ int camera_setup(int xres, int yres, pixformat_t pixformat, fifomode_t fifo_mode
     return ret;
 }
 
-#if (CAMERA == HM01B0)
+#if (CAMERA == HM01B0 || CAMERA == OV5642)
 int camera_read_reg(uint16_t reg_addr, uint8_t* reg_data)
 {
     return camera.read_reg(reg_addr, reg_data);

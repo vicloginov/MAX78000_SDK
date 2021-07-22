@@ -102,8 +102,6 @@ int main(void)
     // Initialize DMA for camera interface
     MXC_DMA_Init();
     dma_channel = MXC_DMA_AcquireChannel();
-
-	//MXC_Delay(100);
 	
     // Initialize the camera driver.
     camera_init(CAMERA_FREQ);
@@ -113,10 +111,6 @@ int main(void)
 
     printf("Camera I2C slave address is %02x\n", slaveAddress);
 
-    camera_read_reg(0x300A, &value);
-    printf("ID1_56h: %04x\n", value);
-    camera_read_reg(0x300B, &value);
-    printf("ID2_42h: %04x\n", value);
 /*    
     while(1)
     {
@@ -129,16 +123,7 @@ int main(void)
             MXC_Delay(500000);
         }
     }
-    
-    // Obtain the product ID of the camera.
-    ret = camera_get_product_id(&id);
-    
-    if (ret != STATUS_OK) {
-        printf("Error returned from reading camera id. Error %d\n", ret);
-        return -1;
-    }
 */    
-    printf("Camera Product ID is %04x\n", id);
     
     // Obtain the manufactor ID of the camera.
     ret = camera_get_manufacture_id(&id);
@@ -148,8 +133,14 @@ int main(void)
         return -1;
     }
     
-    printf("Camera Manufacture ID is %04x\n", id);
- 
+    if(id == 0x5642)
+        printf("OV5642 camera detected %04x\n", id);
+    else
+    {
+        printf("Error: OV5642 camera not detected %04x\n", id);
+        return -1;
+    }
+    
     while(1);
  
     // Setup the camera image dimensions, pixel format and data aquiring details.

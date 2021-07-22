@@ -45,7 +45,11 @@ SRCS += touchscreen.c
 SRCS += camera.c
 ifeq "$(CAMERA)" "HM01B0"
 SRCS += hm01b0.c
-else
+endif
+ifeq "$(CAMERA)" "OV5642"
+SRCS += ov5642.c
+endif
+ifeq "$(CAMERA)" "OV7692"
 SRCS += ov7692.c
 endif
 SRCS += sccb.c
